@@ -36,9 +36,13 @@ def login():
         user.password = None
 
         data_response = {
-            'token': generate_jwt({'id': user.id, 'email': user.email, 'role': user.role}),
-            'user': user.serialize()
+            'data':{
+                'token': generate_jwt({'id': user.id, 'email': user.email, 'role': user.role}),
+                'user': user.serialize()
+            }
         }
+
+        print(data_response)
 
         data_session = {
             'status': 'connected',
@@ -55,7 +59,10 @@ def login():
             data_session
         )
 
-        return jsonify('Usuário autenticado com sucesso', data_response), 200
+        # print({'data': ['Usuário autenticado com sucesso', data_response]})
+
+        # Usuário autenticado com sucesso
+        return jsonify(data_response), 200
     except Exception as e:
         print(e)
         return jsonify({'error': f'Ocorreu um erro ao realizar login.\nDescrição: {e}'}), 500
