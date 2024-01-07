@@ -1,0 +1,9 @@
+{
+    "name": "Python: A name example",
+    "type": "python",
+    "request": "launch",
+    "program": "app.py",
+    "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+    },
+}
