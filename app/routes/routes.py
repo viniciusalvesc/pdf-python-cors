@@ -1,3 +1,9 @@
+"""
+Nome do arquivo: routes.py
+Autor: Vinicius Alves Campello
+Data de desenvolvimento: 07/01/2024
+Descrição: Arquivo responsável pelas rotas da aplicação Tax.
+"""
 from flask import Blueprint
 from routes.auth.authRoute import bp as auth_bp
 

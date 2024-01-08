@@ -1,3 +1,9 @@
+"""
+Nome do arquivo: authRoute.py
+Autor: Vinicius Alves Campello
+Data de desenvolvimento: 07/01/2024
+Descrição: Arquivo responsável pela rota de login do usuário.
+"""
 from services.pusherService import PusherService
 from flask import Blueprint, jsonify, request
 from models.user.Users import Users
@@ -10,11 +16,6 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 @bp.route('/login', methods=['POST'])
 def login():
     try:
-        # return jsonify({
-        #         "access_token": email,
-        #         "user": password
-        #     }), 200
-
         body = request.json
         email = body.get('email')
         password = body.get('password')
@@ -28,21 +29,18 @@ def login():
         if not user:
             return jsonify('Email não cadastrado'), 404
 
-        # compara hash
         if not flask_bcrypt.check_password_hash(user.password, password):
             return jsonify('Email ou senha inválidos'), 401
 
-        # ocultando a senha do banco
         user.password = None
 
         data_response = {
+            'msg':'Usuário autenticado com sucesso',
             'data':{
                 'token': generate_jwt({'id': user.id, 'email': user.email, 'role': user.role}),
                 'user': user.serialize()
             }
         }
-
-        print(data_response)
 
         data_session = {
             'status': 'connected',
@@ -52,16 +50,12 @@ def login():
             },
         }
 
-        # utilizando o Pusher para o disparo de eventos
         PusherService().send_trigger(
             f'session_user_{user.id}',
             'created_session',
             data_session
         )
 
-        # print({'data': ['Usuário autenticado com sucesso', data_response]})
-
-        # Usuário autenticado com sucesso
         return jsonify(data_response), 200
     except Exception as e:
         print(e)

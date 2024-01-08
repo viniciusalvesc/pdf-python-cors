@@ -1,3 +1,9 @@
+"""
+Nome do arquivo: database.py
+Autor: Vinicius Alves Campello
+Data de desenvolvimento: 07/01/2024
+Descrição: Arquivo responsável pela conexão com o banco de dados.
+"""
 import mysql.connector
 from decouple import config
 

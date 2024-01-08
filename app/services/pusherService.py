@@ -1,13 +1,19 @@
+"""
+Nome do arquivo: pusherService.py
+Autor: Vinicius Alves Campello
+Data de desenvolvimento: 07/01/2024
+Descrição: Arquivo do serviço Pusher, responsável por enviar mensagens em tempo real.
+"""
 from pusher import Pusher
-import os
+from decouple import config
 
 class PusherService:
     def __init__(self):
         self.pusher = Pusher(
-            app_id=os.getenv('PUSHER_APP_ID'),
-            key=os.getenv('PUSHER_KEY'),
-            secret=os.getenv('PUSHER_SECRET'),
-            cluster=os.getenv('PUSHER_CLUSTER'),
+            app_id=config('PUSHER_APP_ID'),
+            key=config('PUSHER_KEY'),
+            secret=config('PUSHER_SECRET'),
+            cluster=config('PUSHER_CLUSTER'),
             ssl=True,
         )
 
