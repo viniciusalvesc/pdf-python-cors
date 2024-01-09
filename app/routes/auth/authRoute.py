@@ -6,11 +6,10 @@ Descrição: Arquivo responsável pela rota de login do usuário.
 """
 from services.pusherService import PusherService
 from flask import Blueprint, jsonify, request
-from models.user.Users import Users
+from models.users.Users import Users
 from utils.tokenJWT import generate_jwt
 import flask_bcrypt
 
-# rota com prefixo auth
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 @bp.route('/login', methods=['POST'])
