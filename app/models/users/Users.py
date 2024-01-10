@@ -16,7 +16,7 @@ class Users(db.Model):
     createdAt = db.Column(db.Date)
     updatedAt = db.Column(db.Date)
     deletedAt = db.Column(db.Date)
-    personal_info = db.relationship('PersonalInfo', backref='user', uselist=False)
+    personal_info = db.relationship('PersonalInfo', back_populates='user', uselist=True)
 
     def serialize(self):
         return {

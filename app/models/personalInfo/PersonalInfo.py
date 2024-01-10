@@ -12,16 +12,32 @@ class PersonalInfo(db.Model):
     __tablename__ = 'personalInfo'
     
     id = db.Column(db.String, primary_key=True)
-    user_id = db.Column(db.String, ForeignKey('users.id'), nullable=False, unique=True)
-    first_name = db.Column(db.String)
-    last_name = db.Column(db.String)
+    userId = db.Column(db.String, ForeignKey('users.id'), nullable=False, unique=True)
+    firstName = db.Column(db.String)
+    lastName = db.Column(db.String)
     cpf = db.Column(db.String)
     birthdate = db.Column(db.Date)
     gender = db.Column(db.String)
-    phone_number = db.Column(db.String)
-    user_avatar_url = db.Column(db.String)
-    created_at = db.Column(db.Date)
-    updated_at = db.Column(db.Date)
-    deleted_at = db.Column(db.Date)
+    phoneNumber = db.Column(db.String)
+    userAvatarUrl = db.Column(db.String)
+    createdAt = db.Column(db.Date)
+    updatedAt = db.Column(db.Date)
+    deletedAt = db.Column(db.Date)
 
-    user = relationship('User', backref='user_profile')
+    user = db.relationship('Users', back_populates='personal_info')
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'userId': self.userId,
+            'firstName': self.firstName,
+            'lastName': self.lastName,
+            'cpf': self.cpf,
+            'birthdate': self.birthdate.isoformat() if self.birthdate else None,
+            'gender': self.gender,
+            'phoneNumber': self.phoneNumber,
+            'userAvatarUrl': self.userAvatarUrl,
+            'createdAt': self.createdAt.isoformat() if self.createdAt else None,
+            'updatedAt': self.updatedAt.isoformat() if self.updatedAt else None,
+            'deletedAt': self.deletedAt.isoformat() if self.deletedAt else None,
+        }
