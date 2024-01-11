@@ -13,10 +13,12 @@ class Users(db.Model):
     email = db.Column(db.String)
     password = db.Column(db.String)
     status = db.Column(db.String)
-    createdAt = db.Column(db.Date)
-    updatedAt = db.Column(db.Date)
-    deletedAt = db.Column(db.Date)
-    personal_info = db.relationship('PersonalInfo', back_populates='user', uselist=True)
+    created_at = db.Column(db.Date)
+    updated_at = db.Column(db.Date)
+    deleted_at = db.Column(db.Date)
+
+    user_info = db.relationship('UserInfo', back_populates='user', uselist=True)
+    user_address = db.relationship('UserAddress', back_populates='user', uselist=True)
 
     def serialize(self):
         return {
@@ -25,8 +27,8 @@ class Users(db.Model):
             'email': self.email,
             'password': self.password,
             'status': self.status,
-            'createdAt': self.createdAt.isoformat() if self.createdAt else None,
-            'updatedAt': self.updatedAt.isoformat() if self.updatedAt else None,
-            'deletedAt': self.deletedAt.isoformat() if self.deletedAt else None,
+            'created_at': self.created_at.isoformat() if self.created_at else None,
+            'updated_at': self.updated_at.isoformat() if self.updated_at else None,
+            'deleted_at': self.deleted_at.isoformat() if self.deleted_at else None,
         }
 
