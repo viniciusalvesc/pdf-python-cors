@@ -4,22 +4,25 @@ Autor: Vinicius Alves Campello
 Data de desenvolvimento: 07/01/2024
 Descrição: Arquivo principal da aplicação, responsável pela configuração e execução.
 """
-from config.database import create_db_connection
+# from config.database import create_db_connection
 from config.initialize import create_app
 from utils.logger import logger
 from decouple import config
+import uvicorn
+import asyncio
 
-def main():
+async def main():
     try:
-        app = create_app()
-        db_connection = create_db_connection()
-        if db_connection:
-            logger.info('[TAX Backend] estabelecida conexão com o database')
-            app.run(host=config('HOST'), port=config('PORT'))
-            db_connection.close()
-        else: logger.warning('Não conectou ao database')
+        app = await create_app()
+        
+        await uvicorn.run(config('INIT_FILE_PATH'), 
+            host="localhost", 
+            port=3333, 
+            reload=True
+        )
+
     except Exception as e:
         logger.error(f'[__main__]: {e}')
 
 if __name__ == '__main__':
-    main()
+    asyncio.run(main())
