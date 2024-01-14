@@ -4,9 +4,8 @@ Autor: Vinicius Alves Campello
 Data de desenvolvimento: 07/01/2024
 Descrição: Arquivo de funcionalidades de tokens JWT.
 """
-from flask import jsonify
-from werkzeug.exceptions import Unauthorized
-import jwt
+from fastapi import HTTPException, status
+from jose import jwt
 from datetime import datetime, timedelta
 from decouple import config
 
@@ -22,10 +21,12 @@ def verify_jwt(token):
         decoded_token = jwt.decode(token, config('JWT_SECRET'), algorithms=['HS256'])
 
         if not decoded_token:
-            raise Unauthorized('Token Inválido')
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Token Inválido')
 
-        return jsonify({'message': 'Token Válido'})
+        return {'message': 'Token Válido'}
+
     except jwt.ExpiredSignatureError:
-        raise Unauthorized('Token Expirado')
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Token Expirado')
+
     except jwt.InvalidTokenError:
-        raise Unauthorized('Token Inválido')
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Token Inválido')

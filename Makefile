@@ -1,6 +1,8 @@
 VENV = venv
 PYTHON = $(VENV)/bin/python
-FAST_API_APP = app/main.py
+FAST_API_MAIN = app/main.py
+FAST_API_APP = app.main:main
+UVICORN_CMD = $(PYTHON) -m uvicorn $(FAST_API_APP) --host localhost --port 3333 --reload
 
 $(VENV):
 	@echo "Criando ambiente virtual .."
@@ -12,8 +14,8 @@ install: $(VENV)
 
 run:
 	@echo "Subindo servidor ASGI Uvicorn para desenvolvimento .."
-	chmod +x $(FAST_API_APP)
-	$(VENV)/bin/python $(FAST_API_APP)
+	chmod +x $(FAST_API_MAIN)
+	$(UVICORN_CMD)
 
 clean:
 	@echo "Removendo ambiente virtual .."

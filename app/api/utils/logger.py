@@ -1,6 +1,6 @@
 """
 Nome do arquivo: logger.py
-Autor: Vinicius Alves Campello
+Autor: Guilherme Zaramella
 Data de desenvolvimento: 07/01/2024
 Descrição: Arquivo responsável pelas configurações de logs.
 """

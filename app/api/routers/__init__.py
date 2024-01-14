@@ -5,5 +5,10 @@ Data de desenvolvimento: 13/01/2024
 Descrição: Arquivo responsável pela instância principal do APIRouter.
 """
 from fastapi import APIRouter
+# from api.routers.users import users
+from app.api.routers.auth import auth
 
-router = APIRouter()
+router = APIRouter(prefix="/api")
+
+router.include_router(auth.auth_router)
+# # router.include_router(users.router)
