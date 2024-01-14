@@ -4,10 +4,10 @@ Autor: Vinicius Alves Campello
 Data de desenvolvimento: 09/01/2024
 Descrição: Arquivo responsável pela rota de usuários.
 """
-from models.user_address.UserAddress import UserAddress
+from app.api.models.UserAddress import UserAddress
 from flask import Blueprint, jsonify
-from models.users.Users import Users
-from models.user_info.UserInfo import UserInfo
+from app.api.models.User import User
+from app.api.models.UserInfo import UserInfo
 from config.alchemy import db
 
 bp = Blueprint('users', __name__, url_prefix='/users')
@@ -16,10 +16,10 @@ bp = Blueprint('users', __name__, url_prefix='/users')
 def findOne(email):
     try:
         user = (
-            db.session.query(Users)
-            .join(UserInfo, Users.id == UserInfo.user_id)
-            .join(UserAddress, Users.id == UserAddress.user_id)
-            .filter(Users.email == email)
+            db.session.query(User)
+            .join(UserInfo, User.id == UserInfo.user_id)
+            .join(UserAddress, User.id == UserAddress.user_id)
+            .filter(User.email == email)
             .first()
         )
         

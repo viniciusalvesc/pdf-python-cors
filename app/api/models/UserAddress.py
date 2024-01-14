@@ -8,10 +8,10 @@ from sqlalchemy import ForeignKey
 from config.alchemy import db
 
 class UserAddress(db.Model):
-    __tablename__ = 'user_address'
+    __tablename__ = 'ft_user_address'
 
     id = db.Column(db.String(36), primary_key=True)
-    user_id = db.Column(db.String, ForeignKey('users.id'), nullable=False, unique=True)
+    user_id = db.Column(db.String, ForeignKey('ft_user.id'), nullable=False, unique=True)
     zipcode = db.Column(db.String)
     country = db.Column(db.String)
     state = db.Column(db.String)
@@ -24,7 +24,7 @@ class UserAddress(db.Model):
     updated_at = db.Column(db.Date)
     deleted_at = db.Column(db.Date)
 
-    user = db.relationship('Users', back_populates='user_address')
+    user = db.relationship('User', back_populates='user_address')
 
     def serialize(self):
         return {

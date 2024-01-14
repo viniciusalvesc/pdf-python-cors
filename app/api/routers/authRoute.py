@@ -6,7 +6,7 @@ Descrição: Arquivo responsável pela rota de login do usuário.
 """
 from services.pusherService import PusherService
 from flask import Blueprint, jsonify, request
-from models.users.Users import Users
+from app.models.users.User import Users
 from utils.tokenJWT import generate_jwt
 import flask_bcrypt
 

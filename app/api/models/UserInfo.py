@@ -8,10 +8,10 @@ from sqlalchemy import ForeignKey
 from config.alchemy import db
 
 class UserInfo(db.Model):
-    __tablename__ = 'user_info'
+    __tablename__ = 'ft_user_info'
     
     id = db.Column(db.String, primary_key=True)
-    user_id = db.Column(db.String, ForeignKey('users.id'), nullable=False, unique=True)
+    user_id = db.Column(db.String, ForeignKey('ft_user.id'), nullable=False, unique=True)
     first_name = db.Column(db.String)
     last_name = db.Column(db.String)
     cpf = db.Column(db.String)
@@ -23,7 +23,7 @@ class UserInfo(db.Model):
     updated_at = db.Column(db.Date)
     deleted_at = db.Column(db.Date)
 
-    user = db.relationship('Users', back_populates='user_info')
+    user = db.relationship('User', back_populates='user_info')
 
     def serialize(self):
         return {

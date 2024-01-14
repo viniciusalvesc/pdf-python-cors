@@ -6,7 +6,7 @@ Descrição: Arquivo principal da aplicação, responsável pela configuração 
 """
 # from config.database import create_db_connection
 from config.initialize import create_app
-from utils.logger import logger
+from api.utils.logger import logger
 from decouple import config
 import uvicorn
 import asyncio

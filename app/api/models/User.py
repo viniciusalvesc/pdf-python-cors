@@ -6,8 +6,8 @@ Descrição: Arquivo modelo da tabela users do banco de dados.
 """
 from config.alchemy import db
 
-class Users(db.Model):
-    __tablename__ = 'users'
+class User(db.Model):
+    __tablename__ = 'ft_user'
     id =  db.Column(db.String, primary_key=True)
     role = db.Column(db.String)
     email = db.Column(db.String)
@@ -31,4 +31,3 @@ class Users(db.Model):
             'updated_at': self.updated_at.isoformat() if self.updated_at else None,
             'deleted_at': self.deleted_at.isoformat() if self.deleted_at else None,
         }
-
