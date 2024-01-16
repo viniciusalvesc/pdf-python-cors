@@ -8,7 +8,6 @@ from sqlalchemy import create_engine
 from decouple import config
 from databases import Database
 from sqlalchemy.orm import sessionmaker
-from decouple import config
 from app.api.utils.logger import logger
 
 try: 

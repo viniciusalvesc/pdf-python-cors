@@ -4,11 +4,13 @@ Autor: Vinicius Alves Campello
 Data de desenvolvimento: 15/01/2024
 Descrição: Arquivo responsável pela rota de usuários.
 """
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 from app.api.models.ft_user.User import User
 from app.api.models.ft_user_address.UserAddress import UserAddress
 from app.api.models.ft_user_info.UserInfo import UserInfo
+from app.api.models.ft_processed_item.ProcessedItem import ProcessedItem
 from sqlalchemy.orm import Session
+from app.api.utils.tokenAuth import TokenAuth
 from app.db.sqlalchemy import get_db
 
 users_router = APIRouter(prefix="/users")
@@ -34,6 +36,35 @@ async def findOne(email: str, db: Session = Depends(get_db)):
             'data':{
                 'user': user
             }
+        }
+        
+        return data_response
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=500, detail=f'Erro inesperado, tente novamente.\nDescrição: {e}')
+
+
+@users_router.get('/',  dependencies=[Depends(TokenAuth())])
+async def findAll(db: Session = Depends(get_db)):
+    try:
+        result = (db.query(User)
+            .join(User.user_info)
+            .join(User.user_address)
+            .join(User.processed_item)
+            # .join(User.payment_method)
+            # .join(User.payment_address)
+            # .join(User.subscription)
+            # .join(User.payment_history)
+            .filter(User.deleted_at.is_(None)))
+        
+        users = result.all()
+
+        for user in users:
+            user.password = None
+
+        data_response = {
+            'msg':'Lista de usuários obtida com sucesso',
+            'data':users
         }
         
         return data_response

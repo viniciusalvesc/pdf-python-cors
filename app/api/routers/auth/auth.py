@@ -11,7 +11,7 @@ import app.api.models.ft_user_info.UserInfo
 from app.api.schemas.auth_route import LoginRequest
 from app.api.services.pusherService import PusherService
 from sqlalchemy.orm import Session
-from app.api.utils.tokenJWT import generate_jwt
+from app.api.utils.tokenHandler import generate_jwt
 from app.db.sqlalchemy import get_db
 import bcrypt
 

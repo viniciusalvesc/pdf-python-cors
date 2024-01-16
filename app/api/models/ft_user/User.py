@@ -23,3 +23,4 @@ class User(Base):
 
     user_info = relationship('UserInfo', back_populates='user', uselist=True)
     user_address = relationship('UserAddress', back_populates='user', uselist=True)
+    processed_item = relationship('ProcessedItem', back_populates='user', uselist=True)
