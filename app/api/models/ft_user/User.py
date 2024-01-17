@@ -24,3 +24,7 @@ class User(Base):
     user_info = relationship('UserInfo', back_populates='user', uselist=True)
     user_address = relationship('UserAddress', back_populates='user', uselist=True)
     processed_item = relationship('ProcessedItem', back_populates='user', uselist=True)
+    payment_method = relationship('PaymentMethod', back_populates='user', uselist=True)
+    payment_address = relationship('PaymentAddress', back_populates='user', uselist=True)
+    subscription = relationship('Subscription', back_populates='user', uselist=True)
+    payment_history = relationship('PaymentHistory', back_populates='user', uselist=True)

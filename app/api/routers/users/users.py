@@ -9,6 +9,10 @@ from app.api.models.ft_user.User import User
 from app.api.models.ft_user_address.UserAddress import UserAddress
 from app.api.models.ft_user_info.UserInfo import UserInfo
 from app.api.models.ft_processed_item.ProcessedItem import ProcessedItem
+from app.api.models.ft_payment_method.PaymentMethod import PaymentMethod
+from app.api.models.ft_payment_address.PaymentAddress import PaymentAddress
+from app.api.models.ft_subscription.Subscription import Subscription
+from app.api.models.ft_payment_history.PaymentHistory import PaymentHistory
 from sqlalchemy.orm import Session
 from app.api.utils.tokenAuth import TokenAuth
 from app.db.sqlalchemy import get_db
@@ -51,10 +55,10 @@ async def findAll(db: Session = Depends(get_db)):
             .join(User.user_info)
             .join(User.user_address)
             .join(User.processed_item)
-            # .join(User.payment_method)
-            # .join(User.payment_address)
-            # .join(User.subscription)
-            # .join(User.payment_history)
+            .join(User.payment_method)
+            .join(User.payment_address)
+            .join(User.subscription)
+            .join(User.payment_history)
             .filter(User.deleted_at.is_(None)))
         
         users = result.all()
