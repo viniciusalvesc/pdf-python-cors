@@ -21,3 +21,4 @@ class ProcessedItem(Base):
     deleted_at = Column(Date)
 
     user = relationship('User', back_populates='processed_item')
+    

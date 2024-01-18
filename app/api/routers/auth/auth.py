@@ -4,16 +4,14 @@ Autor: Vinicius Alves Campello
 Data de desenvolvimento: 07/01/2024
 Descrição: Arquivo responsável pela rota de login do usuário.
 """
+from app.api.models.ft_user.UserRepository import get_user_by_email
 from fastapi import APIRouter, Depends, HTTPException
-from app.api.models.ft_user.User import User
-import app.api.models.ft_user_address.UserAddress
-import app.api.models.ft_user_info.UserInfo
 from app.api.schemas.auth_route import LoginRequest
 from app.api.services.pusherService import PusherService
+from app.api.utils.helpers import password_check
 from sqlalchemy.orm import Session
 from app.api.utils.tokenHandler import generate_jwt
 from app.db.sqlalchemy import get_db
-import bcrypt
 
 auth_router = APIRouter(prefix="/auth")
 
@@ -27,10 +25,10 @@ async def login(request_data: LoginRequest, db: Session = Depends(get_db)):
         if not email or not password:
             raise HTTPException(status_code=400, detail='Por favor, informe o email e senha.')
 
-        user = db.query(User).filter(User.email == email).first()
+        user = await get_user_by_email(email, db)
+        is_password_valid = await password_check(password, user.password)
 
-
-        if not user or not bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+        if not user or not is_password_valid:
             raise HTTPException(status_code=401, detail='Email ou senha inválidos')
 
         user.password = None

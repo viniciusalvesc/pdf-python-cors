@@ -24,3 +24,4 @@ class PaymentMethod(Base):
 
     user = relationship('User', back_populates='payment_method')
     payment_history = relationship('PaymentHistory', back_populates='payment_method', uselist=True)
+    

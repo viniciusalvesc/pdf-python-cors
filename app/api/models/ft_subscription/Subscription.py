@@ -23,3 +23,4 @@ class Subscription(Base):
     deleted_at = Column(Date)
 
     user = relationship('User', back_populates='subscription')
+    

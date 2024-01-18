@@ -8,7 +8,6 @@ from fastapi import Request, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from .tokenHandler import decode_jwt
 
-
 class TokenAuth(HTTPBearer):
     async def __call__(self, request: Request):
         credentials: HTTPAuthorizationCredentials = await super(TokenAuth, self).__call__(request)

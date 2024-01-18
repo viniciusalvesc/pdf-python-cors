@@ -5,7 +5,6 @@ Data de desenvolvimento: 07/01/2024
 Descrição: Arquivo de funcionalidades de tokens JWT.
 """
 import time
-from fastapi import HTTPException, status
 from jose import jwt
 from datetime import datetime, timedelta
 from decouple import config
