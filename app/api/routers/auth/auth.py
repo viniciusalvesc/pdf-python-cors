@@ -4,7 +4,7 @@ Autor: Vinicius Alves Campello
 Data de desenvolvimento: 07/01/2024
 Descrição: Arquivo responsável pela rota de login do usuário.
 """
-from app.api.models.ft_user.UserRepository import get_user_by_email
+from app.api.models.ft_user import UserRepository
 from fastapi import APIRouter, Depends, HTTPException
 from app.api.schemas.auth_route import LoginRequest
 from app.api.services.pusherService import PusherService
@@ -25,7 +25,7 @@ async def login(request_data: LoginRequest, db: Session = Depends(get_db)):
         if not email or not password:
             raise HTTPException(status_code=400, detail='Por favor, informe o email e senha.')
 
-        user = await get_user_by_email(email, db)
+        user = await UserRepository.get_user_by_email(email, db)
         is_password_valid = await password_check(password, user.password)
 
         if not user or not is_password_valid:
