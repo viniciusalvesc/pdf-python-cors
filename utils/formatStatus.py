@@ -1,0 +1,14 @@
+def formatStatus(status):
+  match (status):
+    case "success":
+      return "CRÉDITO"
+    case "warning":
+      return "ALERTA"
+    case "error":
+      return "ERRO"
+    case "info":
+      return "INFORMAÇÃO"
+    case "fine":
+      return "MULTA"
+    case _:
+      return "REVISAR"

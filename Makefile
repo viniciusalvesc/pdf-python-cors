@@ -2,7 +2,7 @@ VENV = venv
 PYTHON = $(VENV)/bin/python
 FAST_API_MAIN = app/main.py
 FAST_API_APP = app.main:main
-UVICORN_CMD = $(PYTHON) -m uvicorn $(FAST_API_APP) --host localhost --port 3333 --reload
+UVICORN_CMD = $(PYTHON) -m uvicorn $(FAST_API_APP) --host localhost --port 3334 --reload
 
 $(VENV):
 	@echo "Criando ambiente virtual .."

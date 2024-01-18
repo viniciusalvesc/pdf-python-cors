@@ -5,4 +5,4 @@ venv
 /logs
 .vscode/launch.json
 __pycache__
-
+assets
